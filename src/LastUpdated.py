@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
 
 class LastUpdated:
     def __init__(self, page):
@@ -12,16 +12,15 @@ class LastUpdated:
         last_updated = self.page.locator("h3.subtitle > span > span").element_handle().inner_text()
         print(last_updated)
         return last_updated
-    
-    def write_to_html(self, last_updated):
-        with open("../index.html", "r") as file:
-            html_content = file.read()
 
-        html_content = html_content.replace("{{ last_updated }}", last_updated)
+    def write_to_html(self, update_time):
+        soup = BeautifulSoup(open("../index.html"), "html.parser")
+        last_updated = soup.find("span", {"class": "last_updated"})
+        last_updated.string = update_time
 
-        with open("../index.html", "w") as file:
-            file.write(html_content)
+        with open("../index.html", "w") as f:
+            f.write(str(soup))
+
         
-        print("Updated index.html")
 
     
