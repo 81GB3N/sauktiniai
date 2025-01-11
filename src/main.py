@@ -34,8 +34,7 @@ def scrape_table():
 
         delete_existing_files()
         create_folders()
-        #"kauno", "vilniaus", "klaipedos", "siauliu", 
-        regions = ["panevezio", "alytaus"]
+        regions = ["vilniaus", "kauno", "klaipedos", "siauliu", "panevezio", "alytaus"]
         for region in regions:
             regional_data = []
             region_link = f"https://sauktiniai.karys.lt/#/list/{region}"
